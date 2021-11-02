@@ -1,7 +1,9 @@
 @startuml
 'https://plantuml.com/sequence-diagram
+Controller - AllLists
 class Controller{
 +public AllLists allList
++int pageNumber
 
 +addTodoListResponse()
 +addTodoListCancel()
@@ -16,22 +18,49 @@ class Controller{
 +loadAllTodoList()
 +loadAllTodoListCancel()
 +loadAllTodoListDone()
++private clearLoadTodoList()
 
 +selectTodoListResponse()
 +loadTodoListPage()
+
 +addItemResponse()
 +addItemResponseCancel()
 +addItemResponseDone()
-+clearAddItemResponse()
++private clearAddItemResponse()
+
 +RemoveItemResponse()
 +RemoveItemResponseCancel()
 +RemoveItemResponseDone()
-+clearRemoveItemResponse()
++private clearRemoveItemResponse()
+
 +CompleteOnlyResponse()
 +IncompleteOnlyResponse()
++private filterCompleteness()
+
 +EditDateResponse()
 +EditDateCancel()
++EditDateDone()
++private clearEditDateResponse()
 
++EditDescriptionResponse()
++EditDescriptionCancel()
++EditDescriptionDone()
++private clearEditDescriptionResponse()
+
++selectItemResponse()
+
++ItemEditDateResponse()
++ItemEditDateCancel()
++ItemEditDateDone()
++private clearItemEditDateResponse()
+
++ItemEditDescriptionResponse()
++ItemEditDescriptionCancel()
++ItemEditDescriptionDone()
++private clearItemEditDescriptionResponse()
+
++backButtonResponse()
++private loadLastPage(int pageNumber)
 }
 class Item{
 +private String description
@@ -70,7 +99,7 @@ class TodoList{
 +private decreaseListSize()
 +int getListSize()
 +setTitle(String title)
-+getTitle()
++String getTitle()
 }
 AllLists -- TodoList
 class AllLists{
@@ -97,7 +126,9 @@ class OutputFile{
 +private setOutWriter(fileName)
 +String getFileName()
 }
+InputFile --OutputFile
 class InputFile{
++OutputFile outputFile
 +public Scanner inputReader
 +private String fileName
 +InputFile()
@@ -105,5 +136,7 @@ class InputFile{
 +private ifError(String fileName)
 +private setInputReader(String fileName)
 +String getFileName()
++getOutputFile()
++getOutputFile(String title)
 }
 @enduml
